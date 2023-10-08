@@ -17,6 +17,8 @@ public class Film implements Serializable {
 //        this.date = date;
 //        this.rating = rating;
 //    }
+    static public FilmBuilder builder() {
+        return new FilmBuilder(); }
     public int getIdFilm() {
         return IdFilm;
     }

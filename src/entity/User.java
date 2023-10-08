@@ -63,6 +63,17 @@ public class User implements Serializable {
 
         this.userRole = userRole;
     }
+    public static boolean hasUserListThisUser(List<User> userList, String login) {
+        User[] users = userList.getAll();
+
+        for (int i = 0; i < users.length && users[i] != null; i++) {
+            if (users[i].getLogin().equals(login)) {
+                System.out.println("Такой пользователь уже есть!");
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

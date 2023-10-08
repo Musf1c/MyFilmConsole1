@@ -7,6 +7,8 @@ import utils.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import static entity.User.hasUserListThisUser;
+
 public class Application {
     static List<User> listUser = new List<>(new User[10]);
     static List<Film> listFilm = new List<>(new Film[50]);
@@ -18,18 +20,11 @@ public class Application {
         Menu menu = null;
 
 
-        FileUtils.readFileUser(listUser,"src\\users1");
-        FileUtils.readFileFilmRating(filmRatingList,"src\\ListFilmRating" );
+        FileUtils.readFileUser(listUser, "src\\users1");
+        FileUtils.readFileFilmRating(filmRatingList, "src\\ListFilmRating");
+        FileUtils.readFileFilm(listFilm, "src\\film1", filmRatingList);
 
-        if (filmRatingList.getSize() != 0) {
-            FileUtils.readFileFilm(listFilm, "src\\film1", filmRatingList);
-
-        }
         listFilm.print();
-        for (Film films:listFilm.getAll()) {
-            System.out.println(films);
-
-        }
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -161,6 +156,9 @@ public class Application {
     }
 
     private static Pair<User, Menu> tryToRegistrationUser() {
+        User[] users = listUser.getAll();
+
+
         Menu menu;
         String login;
         String password;
@@ -170,27 +168,27 @@ public class Application {
         String nickName = keyboard.nextLine();
         System.out.println("Введите логин: ");
         login = keyboard.nextLine();
-        System.out.println("Введите пароль: ");
-        password = keyboard.nextLine();
-        System.out.println("Введите пароль админа: ");
-        if (keyboard.nextLine().equals("123")) {
-            menu = new AdminUserMenu();
-            userRole = UserRole.ADMIN;
-        } else {
-            menu = new CommonUserMenu();
-            userRole = UserRole.COMMON;
+        while (hasUserListThisUser(listUser, login)) {
+            System.out.println("Введите логин: ");
+            login = keyboard.nextLine();
         }
-        User newUser = new User(nickName, login, password, userRole);
-//        for (User user : listUser.getAll()) {
-//            if (user.getLogin().equals(login)) {
-//                System.out.println("Такой пользователь уже есть!");
-//
-//            } else {
-                listUser.insert(newUser);
-//            }
-
-//        }
-        return new Pair<>(newUser, menu);
+            System.out.println("Введите пароль: ");
+            password = keyboard.nextLine();
+            System.out.println("Введите пароль админа: ");
+            if (keyboard.nextLine().equals("123")) {
+                menu = new AdminUserMenu();
+                userRole = UserRole.ADMIN;
+            } else {
+                menu = new CommonUserMenu();
+                userRole = UserRole.COMMON;
+            }
+            User newUser = new User(nickName, login, password, userRole);
+            listUser.insert(newUser);
+            listUser.print();
+            return new Pair<>(newUser, menu);
+        }
     }
-}
+
+
+
 

@@ -86,12 +86,12 @@ public class FileUtils {
 
             while ((line = bufferedReader.readLine()) != null) {
                 String[] partsOfLine = getPartsOfLine(line);
-                Film film = new Film.FilmBuilder().buildIdFilm(Integer.parseInt(partsOfLine[0]))
+                Film film = Film.builder().buildIdFilm(Integer.parseInt(partsOfLine[0]))
                         .buildTitle(partsOfLine[1])
                         .buildGenre(partsOfLine[2])
                         .buildCounty(partsOfLine[3])
                         .buildDate(partsOfLine[4])
-                        .buildRating(ratingCount(filmRatingList, partsOfLine[2]))
+                        .buildRating(ratingCount(filmRatingList, partsOfLine[1]))
                         .build();
 //                Film film = new FilmBuilder(Integer.parseInt(partsOfLine[0]), partsOfLine[1], partsOfLine[2], partsOfLine[3], partsOfLine[4],
 //                        ratingCount(filmRatingList, partsOfLine[2]));
@@ -195,14 +195,12 @@ public class FileUtils {
     public static int ratingCount(List<FilmRating> filmRatingList, String title) {
         int count = 0;
         int sumRating = 0;
-        if (filmRatingList.getSize() != 0){
-            System.out.println( "лист рейтинга не нал");
-        }
-        FilmRating[] dfs = filmRatingList.getAll();
-        System.out.println(dfs[0].getTitle());
-        for (int i = 0; i < dfs.length; i++) {
-           if(dfs[i].getTitle().equals(title)) {
-               sumRating += dfs[i].getRating();
+
+        FilmRating[] filmRatings = filmRatingList.getAll();
+
+        for (int i = 0; i < filmRatings.length && filmRatings[i] != null; i++) {
+           if(filmRatings[i].getTitle().equals(title)) {
+               sumRating += filmRatings[i].getRating();
                ++count;
            }
         }
