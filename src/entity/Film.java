@@ -68,6 +68,15 @@ public class Film implements Serializable {
         }
         return 0;
     }
+    public static Film getFilmForIdFilm(Film[] films, int idFilm){
+        Film film = Film.builder().build();
+        for (int i = 0; i < films.length && films[i] != null; i++) {
+            if (films[i].getIdFilm() == idFilm) {
+                film = films[i];
+            }
+        }
+        return film;
+    }
 
     @Override
     public String toString() {

@@ -7,6 +7,7 @@ import utils.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import static entity.Film.getFilmForIdFilm;
 import static entity.Film.getIdFilmForTitle;
 import static entity.User.hasUserListThisUser;
 
@@ -119,8 +120,38 @@ public class Application {
                             }
                         }
                         case 7 -> {
+                            PersonalFilm[] personalFilms = personalFilmList.getAll();
+                            Film[] films = listFilm.getAll();
+                            List<String>  listTitle = new List<>(new String[100]);
+                            String[] massTitle = listTitle.getAll();
+                            System.out.println("Введите id фильма");
+                            int idFilm = keyboard.nextInt();
+
+                            Film film = getFilmForIdFilm(films, idFilm);
+                            for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++){
+                                if (user.getLogin().equals(personalFilms[i].getLoginUser())){
+                                    listTitle.insert(personalFilms[i].getTitleFilm());
+                                }
+                            }
+                            int count = 0;
+                            int it = 0;
+                            for (int j = 0; j < massTitle.length && massTitle[j] != null; j++) {
+                                if (massTitle[j].equals(film.getTitle())) {
+                                    System.out.println("Такой фильм есть!");
+                                } else {
+                                    count++;
+                                }
+                                it = j;
+                            }
+                            if (count == it) {
+                                PersonalFilm personalFilm = new PersonalFilm(user.getLogin(), film.getTitle());
+                                personalFilmList.insert(personalFilm);
+                                personalFilmList.print();
+                            }
 
                         }
+
+
                         case 8 -> {
 
                         }
