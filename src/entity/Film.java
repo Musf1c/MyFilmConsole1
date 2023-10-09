@@ -9,14 +9,6 @@ public class Film implements Serializable {
     protected String country;
     protected String date;
     protected int rating;
-//    public Film(int idFilm, String title, String genre, String country, String date, int rating) {
-//        this.IdFilm = idFilm;
-//        this.title = title;
-//        this.genre = genre;
-//        this.country = country;
-//        this.date = date;
-//        this.rating = rating;
-//    }
     static public FilmBuilder builder() {
         return new FilmBuilder(); }
     public int getIdFilm() {
@@ -66,6 +58,15 @@ public class Film implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+    public static int getIdFilmForTitle(List<Film> listFilm, String title) {
+        Film[] films = listFilm.getAll();
+        for(int i =0; i < films.length & films[i] !=null; i++){
+            if(films[i].getTitle().equals(title)){
+                return films[i].getIdFilm();
+            }
+        }
+        return 0;
     }
 
     @Override

@@ -42,11 +42,9 @@ public class FilmRating implements Serializable {
 
     @Override
     public String toString() {
-        return "FilmRating{" +
-                "idFilm=" + idFilm +
-                ", title='" + title + '\'' +
-                ", userLogin='" + userLogin + '\'' +
-                ", rating=" + rating +
-                '}';
+        return "Рейтинг фильма с " +
+                "ID: " + idFilm +
+                " Названием: ," + title +
+                " равен: " + rating;
     }
 }

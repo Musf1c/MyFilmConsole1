@@ -210,6 +210,62 @@ public class FileUtils {
 
         return (int) sumRating/count;
     }
+    public static void readFilePersonalFilm(List<PersonalFilm> listPersonalFilm, String fileName) {
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(fileName);
+            bufferedReader = new BufferedReader(fileReader);
+
+            bufferedReader.readLine();
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] partsOfLine = getPartsOfLine(line);
+
+
+                PersonalFilm filmRating = new PersonalFilm(partsOfLine[0], partsOfLine[1]);
+
+
+                listPersonalFilm.insert(filmRating);
+            }
+
+            listPersonalFilm.print();
+            bufferedReader.close();
+            fileReader.close();
+
+        } catch (IOException e) {
+            try {
+                bufferedReader.close();
+                fileReader.close();
+            } catch (Exception er) {
+                System.out.println("Произошла ошибка");
+            }
+            throw new RuntimeException("Такой файл не найден");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void writeDataToFilePersonalFilm(List<PersonalFilm>  listPersonalFilm, String fileName) {
+        FileWriter fileWriter = null;
+        BufferedWriter bufferedWriter = null;
+        try {
+            fileWriter = new FileWriter(fileName);
+            bufferedWriter = new BufferedWriter(fileWriter);
+
+            PersonalFilm[] personalFilms = listPersonalFilm.getAll();
+
+            for (int i = 0; i < listPersonalFilm.getSize(); i++) {
+                bufferedWriter.write(personalFilms[i] + "\n");
+            }
+
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

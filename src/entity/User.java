@@ -75,6 +75,7 @@ public class User implements Serializable {
         return false;
     }
 
+
     @Override
     public String toString() {
         return String.format("Человек с ником %s, логином %s, ролью %s", nickName, login, userRole);

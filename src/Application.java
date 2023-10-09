@@ -7,11 +7,13 @@ import utils.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import static entity.Film.getIdFilmForTitle;
 import static entity.User.hasUserListThisUser;
 
 public class Application {
     static List<User> listUser = new List<>(new User[10]);
     static List<Film> listFilm = new List<>(new Film[50]);
+    static List<PersonalFilm> personalFilmList =new List<>(new PersonalFilm[10]);
 
     static List<FilmRating> filmRatingList = new List<>(new FilmRating[10]);
     static Authorization authorization = new Authorization(listUser);
@@ -23,8 +25,7 @@ public class Application {
         FileUtils.readFileUser(listUser, "src\\users1");
         FileUtils.readFileFilmRating(filmRatingList, "src\\ListFilmRating");
         FileUtils.readFileFilm(listFilm, "src\\film1", filmRatingList);
-
-        listFilm.print();
+        FileUtils.readFilePersonalFilm(personalFilmList, "src\\PersonalFilm");
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -80,13 +81,42 @@ public class Application {
                                 }
                         }
                         case 4 -> {
-
+                            keyboard.nextLine();
+                            System.out.println("Введите жанр: ");
+                            String genre = keyboard.next();
+                            for (Film film : listFilm.getAll())
+                                if (film.getGenre().equals(genre)) {
+                                    System.out.println(film);
+                                }
                         }
                         case 5 -> {
+                            keyboard.nextLine();
+                            System.out.println("Введите название фильма: ");
+                            String title = keyboard.nextLine();
+                            System.out.println("Введите оценку от 1 до 100: ");
+                            int rating = Integer.parseInt(keyboard.nextLine());
+                            while (!(rating > 0 & rating <= 100))
+                            {
+                                    System.out.println("Введите оценку от 1 до 100: ");
+                                rating = Integer.parseInt(keyboard.nextLine());
+                            }
+                            FilmRating newFilmRating = new FilmRating(getIdFilmForTitle(listFilm, title), title, user.getLogin(), rating);
+                            filmRatingList.insert(newFilmRating);
 
                         }
                         case 6 -> {
+                            PersonalFilm[] personalFilms = personalFilmList.getAll();
+                            Film[] films = listFilm.getAll();
 
+                            for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++) {
+                                if(personalFilms[i].getLoginUser().equals(user.getLogin())) {
+                                    for (int j = 0; j < films.length && films[j] != null; j++){
+                                        if(personalFilms[i].getTitleFilm().equals(films[j].getTitle())){
+                                            System.out.println(films[j].toString());
+                                        }
+                                    }
+                                }
+                            }
                         }
                         case 7 -> {
 
