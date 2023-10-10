@@ -166,7 +166,27 @@ public class Application {
 
 
                         case 8 -> {
+                            PersonalFilm[] personalFilms = personalFilmList.getAll();
+                            System.out.println("Введите название фильма");
+                            keyboard.nextLine();
+                            String titleFilm = keyboard.nextLine();
+                            int count = 0;
+                            int index = 0;
+                            for (int i = 0; i < personalFilms.length & personalFilms[i] != null; i++){
+                                if (personalFilms[i].getLoginUser().equals(user.getLogin()) & personalFilms[i].getTitleFilm().equals(titleFilm)){
+                                    personalFilmList.remove(personalFilms[i]);
+                                    System.out.println("Фильм удален из вашего списка");
+                                    personalFilmList.print();
 
+                                } else {
+                                    count++;
+                                }
+                                index = i;
+                            }
+                           if (count == index + 1) {
+
+                               System.out.println("У вас нет фильма с таким названием");
+                           }
 
                         }
                         case 9 -> {
