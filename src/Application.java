@@ -143,7 +143,7 @@ public class Application {
                                 }
                                 it = j;
                             }
-                            if (count == it) {
+                            if (count == it + 1) {
                                 PersonalFilm personalFilm = new PersonalFilm(user.getLogin(), film.getTitle());
                                 personalFilmList.insert(personalFilm);
                                 personalFilmList.print();
