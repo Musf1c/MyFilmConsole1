@@ -7,8 +7,7 @@ import utils.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import static entity.Film.getFilmForIdFilm;
-import static entity.Film.getIdFilmForTitle;
+import static entity.Film.*;
 import static entity.User.hasUserListThisUser;
 
 public class Application {
@@ -33,18 +32,28 @@ public class Application {
         System.out.println("Выберите один из пунктов: \n" +
                 "1. Войти \n" +
                 "2. Регистрация");
-        int a = keyboard.nextInt();
+
+        String input = keyboard.nextLine();
+
+            while (!(input.equals("1")) & !(input.equals("2"))) {
+                System.out.println("Введите 1 или 2");
+                input = keyboard.nextLine();
+            }
+
+        int inputInt = Integer.parseInt(input);
+
         User user = null;
-        if (a == 1) {
-            Pair<User, Menu> userMenuPair = tryToAuthoriseUser();
-            menu = userMenuPair.getSecondValue();
-            user = userMenuPair.getFirstValue();
-            menu.printMenu();
-        } else if (a == 2) {
-            Pair<User, Menu> userMenuPair = tryToRegistrationUser();
-        } else {
-            System.out.println("1 или 2");
-        }
+            if (inputInt == 1) {
+                Pair<User, Menu> userMenuPair = tryToAuthoriseUser();
+                menu = userMenuPair.getSecondValue();
+                user = userMenuPair.getFirstValue();
+                menu.printMenu();
+            } else if (inputInt == 2) {
+                Pair<User, Menu> userMenuPair = tryToRegistrationUser();
+            } else {
+                System.out.println("1 или 2");
+            }
+
 //        menu.printMenu();
 
 
@@ -122,37 +131,42 @@ public class Application {
                         case 7 -> {
                             PersonalFilm[] personalFilms = personalFilmList.getAll();
                             Film[] films = listFilm.getAll();
-                            List<String>  listTitle = new List<>(new String[100]);
+                            List<String> listTitle = new List<>(new String[100]);
                             String[] massTitle = listTitle.getAll();
                             System.out.println("Введите id фильма");
                             int idFilm = keyboard.nextInt();
-
-                            Film film = getFilmForIdFilm(films, idFilm);
-                            for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++){
-                                if (user.getLogin().equals(personalFilms[i].getLoginUser())){
-                                    listTitle.insert(personalFilms[i].getTitleFilm());
+                            while (!isHadIdFilmInIdFilmList(films, idFilm)) {
+                                System.out.println("Такого id нет");
+                                idFilm = keyboard.nextInt();
+                            }
+                            if (isHadIdFilmInIdFilmList(films, idFilm)) {
+                                Film film = getFilmForIdFilm(films, idFilm);
+                                for (int i = 0; i < personalFilms.length && personalFilms[i] != null; i++) {
+                                    if (user.getLogin().equals(personalFilms[i].getLoginUser())) {
+                                        listTitle.insert(personalFilms[i].getTitleFilm());
+                                    }
+                                }
+                                int count = 0;
+                                int it = 0;
+                                for (int j = 0; j < massTitle.length && massTitle[j] != null; j++) {
+                                    if (massTitle[j].equals(film.getTitle())) {
+                                        System.out.println("Такой фильм есть!");
+                                    } else {
+                                        count++;
+                                    }
+                                    it = j;
+                                }
+                                if (count == it + 1) {
+                                    PersonalFilm personalFilm = new PersonalFilm(user.getLogin(), film.getTitle());
+                                    personalFilmList.insert(personalFilm);
+                                    personalFilmList.print();
                                 }
                             }
-                            int count = 0;
-                            int it = 0;
-                            for (int j = 0; j < massTitle.length && massTitle[j] != null; j++) {
-                                if (massTitle[j].equals(film.getTitle())) {
-                                    System.out.println("Такой фильм есть!");
-                                } else {
-                                    count++;
-                                }
-                                it = j;
-                            }
-                            if (count == it + 1) {
-                                PersonalFilm personalFilm = new PersonalFilm(user.getLogin(), film.getTitle());
-                                personalFilmList.insert(personalFilm);
-                                personalFilmList.print();
-                            }
-
                         }
 
 
                         case 8 -> {
+
 
                         }
                         case 9 -> {
