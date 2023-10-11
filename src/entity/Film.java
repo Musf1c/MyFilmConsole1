@@ -8,7 +8,7 @@ public class Film implements Serializable {
     protected String genre;
     protected String country;
     protected String date;
-    protected int rating;
+    protected int rating = 0;
     static public FilmBuilder builder() {
         return new FilmBuilder(); }
     public int getIdFilm() {
