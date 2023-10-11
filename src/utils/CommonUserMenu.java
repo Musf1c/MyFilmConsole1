@@ -153,18 +153,16 @@ public class CommonUserMenu implements Menu {
 
             }
             case 9 -> {
-                System.out.println("""
-                                    Введите через enter следующие поля:
-                                    1. Ник
-                                    2. Логин
-                                    3. Пароль
-                                    4. Роль
-                                    """);
+
                 keyboard.nextLine();
+                System.out.println("Введите ник :");
                 String nickName = keyboard.nextLine();
+                System.out.println("Введите логин: ");
                 String login = keyboard.nextLine();
+                System.out.println("Введите пароль: ");
                 String password = keyboard.nextLine();
-                UserRole role = UserRole.valueOf(keyboard.nextLine());
+
+                UserRole role = UserRole.COMMON;
                 common.updateData(nickName, login, password, role);
 
                 application.listUser.replaceElement(user, common);

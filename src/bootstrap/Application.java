@@ -62,7 +62,10 @@ public class Application {
 
 
 
-      //  FileUtils.writeDataToFileUser(application.listUser, "src\\usersDO.txt");
+        FileUtils.writeDataToFileUser(application.listUser, "src\\usersDO.txt");
+        FileUtils.writeDataToFileFilm(application.listFilm, "src\\filmsDO.txt");
+        FileUtils.writeDataToFileFilmRating(application.filmRatingList, "src\\filmRatingDO.txt");
+        FileUtils.writeDataToFilePersonalFilm(application.personalFilmList, "src\\personalFilmDO.txt");
 
 
     }

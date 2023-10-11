@@ -33,37 +33,45 @@ public class AdminUserMenu implements Menu {
                 keyboard.nextLine();
                 System.out.println("Введите название фильма: ");
                 String findTitle = keyboard.next();
-                for (Film film : application.listFilm.getAll())
-                    if (film.getTitle().equals(findTitle)) {
-                        System.out.println(film);
+                Film[] films = application.listFilm.getAll();
+                for (int i = 0; i < films.length && films[i] != null; i++) {
+                    if (films[i].getDate().equals(findTitle)) {
+                        System.out.println(films[i]);
                     }
+                }
             }
             case 2 -> {
                 keyboard.nextLine();
                 System.out.println("Введите год выпуска фильма: ");
                 String dateCreateFilm = keyboard.next();
-                for (Film film : application.listFilm.getAll())
-                    if (film.getDate().equals(dateCreateFilm)) {
-                        System.out.println(film);
+                Film[] films = application.listFilm.getAll();
+                for (int i = 0; i < films.length && films[i] != null; i++) {
+                    if (films[i].getDate().equals(dateCreateFilm)) {
+                        System.out.println(films[i]);
                     }
+                }
             }
             case 3 -> {
                 keyboard.nextLine();
                 System.out.println("Введите страну: ");
                 String country = keyboard.next();
-                for (Film film : application.listFilm.getAll())
-                    if (film.getCountry().equals(country)) {
-                        System.out.println(film);
+                Film[] films = application.listFilm.getAll();
+                for (int i = 0; i < films.length && films[i] != null; i++) {
+                    if (films[i].getDate().equals(country)) {
+                        System.out.println(films[i]);
                     }
+                }
             }
             case 4 -> {
                 keyboard.nextLine();
                 System.out.println("Введите жанр: ");
                 String genre = keyboard.next();
-                for (Film film : application.listFilm.getAll())
-                    if (film.getGenre().equals(genre)) {
-                        System.out.println(film);
+                Film[] films = application.listFilm.getAll();
+                for (int i = 0; i < films.length && films[i] != null; i++) {
+                    if (films[i].getDate().equals(genre)) {
+                        System.out.println(films[i]);
                     }
+                }
             }
             case 5 -> {
                 keyboard.nextLine();
@@ -155,18 +163,16 @@ public class AdminUserMenu implements Menu {
 
             }
             case 9 -> {
-                System.out.println("""
-                        Введите через enter следующие поля:
-                        1. Ник
-                        2. Логин
-                        3. Пароль
-                        4. Роль
-                        """);
+
                 keyboard.nextLine();
+                System.out.println("Введите ник :");
                 String nickName = keyboard.nextLine();
+                System.out.println("Введите логин: ");
                 String login = keyboard.nextLine();
+                System.out.println("Введите пароль: ");
                 String password = keyboard.nextLine();
-                UserRole role = UserRole.valueOf(keyboard.nextLine());
+
+                UserRole role = UserRole.ADMIN;
                 common.updateData(nickName, login, password, role);
 
                 application.listUser.replaceElement(user, common);
@@ -176,14 +182,16 @@ public class AdminUserMenu implements Menu {
                 int IdFilm1;
                 int IdFilm;
                 while (true) {
-                    IdFilm1 = (int) (Math.random() * 10000);
+                    IdFilm1 = (int) (Math.random() * 100000);
                     if (!isHadIdFilmInIdFilmList(films, IdFilm1)) {
                         IdFilm = IdFilm1;
                         break;
                     }
                 }
+                keyboard.nextLine();
                 System.out.println("Введите название фильма: ");
                 String title = keyboard.nextLine();
+
                 System.out.println("Введите жанр фильма: ");
                 String genre = keyboard.nextLine();
                 System.out.println("Введите страну производства фильма: ");
@@ -197,6 +205,7 @@ public class AdminUserMenu implements Menu {
                         .buildDate(date)
                         .build();
                 application.listFilm.insert(film);
+                application.listFilm.print();
 
             }
             case 11 -> {
