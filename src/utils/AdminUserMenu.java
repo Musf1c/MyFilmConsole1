@@ -14,10 +14,10 @@ public class AdminUserMenu implements Menu {
                 "2. Поиск фильма по году \n" +
                 "3. Поиск фильма по стране \n" +
                 "4. Поиск фильма по жанру \n" +
-                "5. Выставить оценку фильму \n " +
+                "5. Выставить оценку фильму \n" +
                 "6. Вывести мой список фильмов \n" +
                 "7. Добавить фильм по id \n" +
-                "8. Удалить фильм по id \n +" +
+                "8. Удалить фильм по id \n" +
                 "9. Сменить данные о себе \n" +
                 "10. Добавить фильм в общий список \n" +
                 "11. Удалить из общего списка по id");
@@ -35,7 +35,7 @@ public class AdminUserMenu implements Menu {
                 String findTitle = keyboard.next();
                 Film[] films = application.listFilm.getAll();
                 for (int i = 0; i < films.length && films[i] != null; i++) {
-                    if (films[i].getDate().equals(findTitle)) {
+                    if (films[i].getTitle().equals(findTitle)) {
                         System.out.println(films[i]);
                     }
                 }
@@ -57,7 +57,7 @@ public class AdminUserMenu implements Menu {
                 String country = keyboard.next();
                 Film[] films = application.listFilm.getAll();
                 for (int i = 0; i < films.length && films[i] != null; i++) {
-                    if (films[i].getDate().equals(country)) {
+                    if (films[i].getCountry().equals(country)) {
                         System.out.println(films[i]);
                     }
                 }
@@ -68,7 +68,7 @@ public class AdminUserMenu implements Menu {
                 String genre = keyboard.next();
                 Film[] films = application.listFilm.getAll();
                 for (int i = 0; i < films.length && films[i] != null; i++) {
-                    if (films[i].getDate().equals(genre)) {
+                    if (films[i].getGenre().equals(genre)) {
                         System.out.println(films[i]);
                     }
                 }

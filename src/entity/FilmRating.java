@@ -44,7 +44,7 @@ public class FilmRating implements Serializable {
     public String toString() {
         return "Рейтинг фильма с " +
                 "ID: " + idFilm +
-                " Названием: ," + title +
-                " равен: " + rating;
+                " Названием: " + title +
+                ", равен: " + rating;
     }
 }

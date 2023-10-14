@@ -29,7 +29,7 @@ public class Application {
     public static void runApplication() {
         Application application = new Application();
         Menu menu = null;
-
+        application.listFilm.print();
         Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Выберите один из пунктов: \n" +
@@ -66,12 +66,8 @@ public class Application {
         FileUtils.writeDataToFileFilm(application.listFilm, "src\\filmsDO.txt");
         FileUtils.writeDataToFileFilmRating(application.filmRatingList, "src\\filmRatingDO.txt");
         FileUtils.writeDataToFilePersonalFilm(application.personalFilmList, "src\\personalFilmDO.txt");
-
-
     }
-
-
-    }
+}
 
 
 
